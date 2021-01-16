@@ -83,6 +83,6 @@ export class AWSProvider extends BaseProvider {
       })
     }
     // https://bucket.s3.amazonaws.com/key
-    return `https://${bucket}.s3.amazonaws.com/${key}`
+    return `https://${bucket}/${key}`
   }
 }
