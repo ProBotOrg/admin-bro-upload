@@ -7,19 +7,13 @@
   "repository": "git@github.com:SoftwareBrothers/admin-bro-upload.git",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --out-dir lib --copy-files --extensions '.ts,.js,.jsx,.tsx'",
-    "bundle": "node bin/watch-dev.js",
-    "bundle:globals": "node bin/bundle-globals.js",
-    "check:all": "yarn types && yarn cspell && yarn lint && yarn test && ONCE=true yarn bundle && ONCE=true NODE_ENV=production yarn bundle",
-    "clean": "rm -rf lib && mkdir lib && rm -fr types && mkdir types",
-    "codecov": "NODE_ENV=test nyc --reporter=text-lcov npm test | codecov --pipe",
-    "cover": "NODE_ENV=test nyc --reporter=lcov --reporter=text-lcov npm test",
-    "cspell": "cspell src/**/*.ts src/**/*.js src/**/*.tsx src/**/*.jsx",
-    "dev": "concurrently \"yarn build --watch\" \"yarn bundle\" \"yarn types --watch\"",
-    "lint": "eslint './spec/**/*' './src/**/*' './cy/**/*' './*'",
+    "build": "yarn tsc",
+    "check:all": "yarn lint && yarn build && yarn test",
+    "clean": "rm -fr build && mkdir build && rm -fr types && mkdir types",
+    "dev": "yarn clean && tsc --watch",
+    "lint": "eslint './src/**/*' './example-app/**/*'",
     "release": "semantic-release",
-    "test": "mocha ./spec/index.js",
-    "types": "tsc"
+    "test": "TS_NODE_FILES=true mocha -r ts-node/register ./src/**/*.spec.ts"
   },
   "husky": {
     "hooks": {
